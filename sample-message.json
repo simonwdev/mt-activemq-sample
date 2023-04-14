@@ -1,1 +1,10 @@
-{ "value" : "this is a test" }
+[
+    {
+        "value": "this is a test that will fail",
+        "fail": true
+    },
+
+    {
+        "value": "this is a test"
+    }
+]

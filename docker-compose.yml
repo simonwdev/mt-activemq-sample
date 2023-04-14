@@ -1,10 +1,23 @@
 version: '3'
 
 services:
-  activemq:
-    container_name: activemq
-    image: masstransit/activemq
+  
+  # activemq:
+  #   container_name: activemq
+  #   image: masstransit/activemq
+  #   ports:
+  #     - 61616:61616
+  #     - 61617:5672
+  #     - 8161:8161
+
+  artemis:
+    container_name: artemis
+    image: quay.io/artemiscloud/activemq-artemis-broker
     ports:
-      - 61616:61616
-      - 61617:5672
-      - 8161:8161
+      - "8161:8161"
+      - "61616:61616"
+      - "56721:56721"
+    environment:
+      AMQ_USER: admin
+      AMQ_PASSWORD: admin
+      AMQ_EXTRA_ARGS: "--relax-jolokia"      

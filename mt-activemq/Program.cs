@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using mt_activemq_console;
 
 var host = Host.CreateDefaultBuilder(args)
@@ -24,11 +23,6 @@ var host = Host.CreateDefaultBuilder(args)
         });
     })
     .Build();
-
-// var root = host.Services.GetRequiredService<IConfigurationRoot>();
-// var debugView = root.GetDebugView();
-//
-// Console.WriteLine(debugView);
 
 await host.RunAsync();
 

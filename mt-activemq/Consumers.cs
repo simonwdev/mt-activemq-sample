@@ -6,6 +6,7 @@ namespace mt_activemq_console;
 public record ExternalMessage
 {
     public string? Value { get; set; }
+    public bool? Fail { get; set; }
 }
 
 public class ExternalConsumer : IConsumer<ExternalMessage>
@@ -13,6 +14,9 @@ public class ExternalConsumer : IConsumer<ExternalMessage>
     public async Task Consume(ConsumeContext<ExternalMessage> context)
     {
         Console.WriteLine("VALUE: " + context.Message.Value);
+
+        if (context.Message.Fail ?? false)
+            throw new ApplicationException("Fail");
         
         await Task.CompletedTask;
     }
@@ -36,5 +40,7 @@ public class ExternalConsumerDefinition : ConsumerDefinition<ExternalConsumer>
         
         // Use raw json with any message type allowed.
         endpointConfigurator.UseRawJsonSerializer(RawSerializerOptions.AnyMessageType);
+        
+        endpointConfigurator.UseRetry(a => a.Interval(2, TimeSpan.FromSeconds(1)));
     }
 }
