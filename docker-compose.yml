@@ -10,14 +10,24 @@ services:
   #     - 61617:5672
   #     - 8161:8161
 
-  artemis:
-    container_name: artemis
-    image: quay.io/artemiscloud/activemq-artemis-broker
+  artemis0:
+    container_name: artemis0
+    image: artemis-ubuntu1
     ports:
       - "8161:8161"
       - "61616:61616"
-      - "56721:56721"
+    #volumes:      
+    #  - ./broker/server-1:/var/lib/artemis-instance
     environment:
-      AMQ_USER: admin
-      AMQ_PASSWORD: admin
-      AMQ_EXTRA_ARGS: "--relax-jolokia"      
+      EXTRA_ARGS: "--default-port 61616 --clustered --host artemis0 --http-host artemis0 --relax-jolokia"
+
+  artemis1:
+    container_name: artemis1
+    image: artemis-ubuntu1
+    ports:
+      - "8162:8161"
+      - "9999:61616"
+    #volumes:      
+    #  - ./broker/server-1:/var/lib/artemis-instance
+    environment:
+      EXTRA_ARGS: "--default-port 61616 --clustered --host artemis1 --http-host artemis1 --relax-jolokia" 

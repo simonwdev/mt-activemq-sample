@@ -12,10 +12,10 @@ var host = Host.CreateDefaultBuilder(args)
             x.UsingActiveMq((context,cfg) =>
             {
                 // Connect to the openwire port.
-                cfg.Host("localhost", 61616, a =>
+                cfg.Host(new Uri("activemq://localhost:9999"), a =>
                 {
-                    a.Password("admin");
-                    a.Username("admin");
+                    a.Password("artemis");
+                    a.Username("artemis");
                 });
                 
                 cfg.ConfigureEndpoints(context);
