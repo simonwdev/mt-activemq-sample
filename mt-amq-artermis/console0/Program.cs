@@ -1,6 +1,6 @@
-﻿using MassTransit;
+﻿using console0;
+using MassTransit;
 using Microsoft.Extensions.Hosting;
-using mt_activemq_console;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
@@ -12,7 +12,7 @@ var host = Host.CreateDefaultBuilder(args)
             x.UsingActiveMq((context,cfg) =>
             {
                 // Connect to the openwire port.
-                cfg.Host(new Uri("activemq://localhost:9999"), a =>
+                cfg.Host(new Uri("activemq://localhost:9990"), a =>
                 {
                     a.Password("artemis");
                     a.Username("artemis");
@@ -25,5 +25,3 @@ var host = Host.CreateDefaultBuilder(args)
     .Build();
 
 await host.RunAsync();
-
-

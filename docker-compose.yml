@@ -12,22 +12,26 @@ services:
 
   artemis0:
     container_name: artemis0
-    image: artemis-ubuntu1
+    image: artemis-ubuntu-cluster
     ports:
-      - "8161:8161"
-      - "61616:61616"
+      - "8880:8161"
+      - "9990:61616"
     #volumes:      
-    #  - ./broker/server-1:/var/lib/artemis-instance
+    #  - ./broker/server-0:/var/lib/artemis-instance
     environment:
-      EXTRA_ARGS: "--default-port 61616 --clustered --host artemis0 --http-host artemis0 --relax-jolokia"
+      EXTRA_ARGS: "--default-port 61616 --clustered --host artemis0 --http-host artemis0 --relax-jolokia --max-hops 1 --no-mqtt-acceptor --no-hornetq-acceptor --no-stomp-acceptor"
+      REDISTRIBUTIONDELAY: "5000"
+      SCALEDOWN: "true"
 
   artemis1:
     container_name: artemis1
-    image: artemis-ubuntu1
+    image: artemis-ubuntu-cluster
     ports:
-      - "8162:8161"
-      - "9999:61616"
+      - "8881:8161"
+      - "9991:61616"
     #volumes:      
     #  - ./broker/server-1:/var/lib/artemis-instance
     environment:
-      EXTRA_ARGS: "--default-port 61616 --clustered --host artemis1 --http-host artemis1 --relax-jolokia" 
+      EXTRA_ARGS: "--default-port 61616 --clustered --host artemis1 --http-host artemis1 --relax-jolokia --max-hops 1 --no-mqtt-acceptor --no-hornetq-acceptor --no-stomp-acceptor" 
+      REDISTRIBUTIONDELAY: "5000"
+      SCALEDOWN: "true"

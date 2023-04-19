@@ -1,13 +1,8 @@
 ﻿using MassTransit;
 using MassTransit.Serialization;
+using shared;
 
-namespace mt_activemq_console;
-
-public record ExternalMessage
-{
-    public string? Value { get; set; }
-    public bool? Fail { get; set; }
-}
+namespace console0;
 
 public class ExternalConsumer : IConsumer<ExternalMessage>
 {
